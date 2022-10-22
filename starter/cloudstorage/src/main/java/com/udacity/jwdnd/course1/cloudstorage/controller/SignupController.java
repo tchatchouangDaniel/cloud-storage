@@ -46,9 +46,9 @@ public class SignupController {
             model.addAttribute("signupSuccess", "You signed up successfully.");
         }else {
             model.addAttribute("signupError", signupError);
-            return "signup";
+            model.addAttribute("hasErrors", bindingResult.hasErrors());
         }
 
-        return "login";
+        return "signup";
     }
 }

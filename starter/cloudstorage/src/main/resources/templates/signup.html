@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
-
+        <script type="module" defer th:src="@{js/dynamicFormValidation.js}"></script>
         <title>Sign Up</title>
     </head>
     <body class="p-3 mb-2 bg-light text-black">
@@ -16,34 +16,43 @@
 
             <h1 class="display-5">Sign Up</h1>
             <form action="#" th:action="@{/signup}" th:object="${signupForm}" method="POST">
-                <div id="success-msg" class="alert alert-dark">
+                <div th:if="${signupSuccess}" id="success-msg" class="alert alert-dark">
                     You successfully signed up! Please continue to the <a>login</a> page.
                 </div>
-                <div class="alert alert-danger">
-                    <span>Example Signup Error Message</span>
+                <div th:if="${hasErrors}" class="alert alert-danger">
+                    <ul>
+                        <li th:if="${#fields.hasErrors('firstName')}">Firstname : <span  th:errors="*{firstName}">First name error</span></li>
+                        <li th:if="${#fields.hasErrors('lastName')}">Lastname : <span  th:errors="*{lastName}">Last name error</span></li>
+                        <li th:if="${#fields.hasErrors('username')}">Username :  <span  th:errors="*{username}">Username error</span></li>
+                        <li th:if="${#fields.hasErrors('password')}">Password :  <span th:errors="*{password}">Password error</span></li>
+                    </ul>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputFirstName">First Name</label>
                         <input type="input" name="firstName" class="form-control" th:field="*{firstName}" id="inputFirstName" placeholder="Enter First Name" maxlength="20" required>
-                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Full name error</span>
+                        <span id="inputFirstnameError"></span>
+                        <!--                        <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Full name error</div>-->
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputLastName">Last Name</label>
                         <input type="input" name="lastName" class="form-control" id="inputLastName" th:field="*{lastName}" placeholder="Enter Last Name" maxlength="20" required>
-                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Full name error</span>
+                        <span id="inputLastnameError"></span>
+                        <!--                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Full name error</span>-->
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputUsername">Username</label>
                         <input type="input" name="username" class="form-control" id="inputUsername" th:field="*{username}" placeholder="Enter Username" maxlength="20" required>
-                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Full name error</span>
+                        <span id="inputUsernameError"></span>
+                        <!--                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Full name error</span>-->
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassword">Password</label>
                         <input type="password" name="password" class="form-control" id="inputPassword" th:field="*{password}" placeholder="Enter Password" maxlength="20" required>
-                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Full name error</span>
+                        <span id="inputPasswordError"></span>
+<!--                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Full name error</span>-->
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary" id="buttonSignUp">Sign Up</button>
