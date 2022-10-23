@@ -15,7 +15,7 @@ const signupForm = {
 
 // We hide all the error elements here
 Object.keys(signupForm).forEach(input => {
-    if(input.includes("Error")) signupForm[input].style.display = "none";
+    if(input.includes("Error") && signupForm[input]) signupForm[input].style.display = "none";
 })
 
 // for each field we check if it exist before adding event listener
