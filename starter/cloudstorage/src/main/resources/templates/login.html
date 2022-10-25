@@ -19,7 +19,10 @@
                         <li th:if="${#fields.hasErrors('password')}">Password :  <span th:errors="*{password}">Password error</span></li>
                     </ul>
                 </div>
-                <div th:if="${hasUserLogout}" class="alert alert-dark">
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Login error: Please check your credentials and try again.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-dark">
                     You have been logged out
                 </div>
                 <div class="form-group">
