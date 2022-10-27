@@ -21,26 +21,12 @@ public class HomeController {
 
     @GetMapping("/home")
     public String getHome(Authentication authentication,@ModelAttribute("noteForm") NoteForm noteForm, Model model){
-        String isFiles = "active", isNotes = "", isCredentials = "";
         String username = authentication.getName();
         model.addAttribute("username", username);
         model.addAttribute("noteList", noteService.getAllNotes(username));
-        model.addAttribute("isNotes", isNotes);
-        model.addAttribute("isFiles", isFiles);
-        model.addAttribute("isCredentials", isCredentials);
+        model.addAttribute("isFiles", true);
         return "home";
     }
-    @PostMapping("/home")
-    public String register(Authentication authentication,@ModelAttribute("noteForm") NoteForm noteForm, Model model){
-        String username = authentication.getName();
-        String isFiles = "", isNotes = "active", isCredentials = "";
-        noteService.addNote(noteForm, authentication.getName());
-        model.addAttribute("username", username);
-        model.addAttribute("noteList", noteService.getAllNotes(username));
-        model.addAttribute("isNotes", isNotes);
-        model.addAttribute("isFiles", isFiles);
-        model.addAttribute("isCredentials", isCredentials);
-        return "home";
-    }
+
 
 }
